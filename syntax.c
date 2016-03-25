@@ -1,2 +1,211 @@
-#include <stdio.h>
+
+//check text file-- check .txt or the file content is all text??/ascii
+//do we need to use fopen to open the file??? y,and fget to check line by line
+
+//must fit in single line
+// Every command or expression terminates with a carriage return and line feed.
+					
+//int isValidCommand(char *token);
+//Returns 1 if the token is one of the valid robot commands, otherwise it returns 0.
+//command is atomic -- single word,not case sensitive
+//Legal commands are: TAKEASTEP, LEFT, RIGHT,PICKUP, DROP, DETECTMARKER, TURNON, and TURNOFF.
+				
+int isValidCommand(char *token);
+int isValidExpression(char *expression);
+//prototypes,so order don't matter
+
+//validCommand
+int main(int argc, char *argv[]) {
+	int result, errno;
+
+	if(argc < 3 || argc > 3) {
+		Usage(argv[0]);
+		exit(1);
+	}
+
+	//Use system("cls") on windows
+	//Use system("clear") on Unix/Linux
+	system("clear");
+
+	result = Search_in_File(argv[1], argv[2]);
+	if(result == -1) {
+		perror("Error");
+		printf("Error number = %d\n", errno);
+		exit(1);
+	}
+	return(0);
+}
+
+void Usage(char *filename) {
+	printf("Usage: %s <file> <string>\n", filename);
+	printf("%s version 1.0 \nCopyright(c) CodingUnit.com\n", filename);
+}
+
+int Search_in_File(char *fname) {
+	FILE *fp;
+	int line_num = 1;
+	int find_result = 0;
+	char temp[512];
+
+ 	//str contains the elements we want to check
+	//if doesn't find a match, return the line number
+	char *commands[] = {"TAKEASTEP","LEFT","RIGHT","PICKUP","DROP","DETECTMARKER","TURNON","TURNOFF"}
+	
+	//gcc users
+	if((fp = fopen(fname, "r")) == NULL) {
+		return(-1);
+	}
+
+	//Visual Studio users
+	//if((fopen_s(&fp, fname, "r")) != NULL) {
+	//	return(-1);
+	}
+
+
+	//most func done in while
+	//strcasecmp() in string.h compare two string incasesensitive
+
+	//only read one line per time and start from the first time??
+	//does it goes to another line automatically???
+	while(fgets(temp, 512, fp) != NULL) {
+	//	if((strstr(temp, str)) != NULL) {
+		if((strcasecmp(temp,str))!= NULL){
+			printf("A match found on line: %d\n", line_num);
+			printf("\n%s\n", temp);
+			find_result++;
+		}
+		line_num++;
+	}
+
+	//display the line number of the offending line
+	//echo the offending line
+	//indicating where the error is using a marker(***before the offence)
+	//display error message describing what the program expecting on a new line
+	//for every line in the file
+
+	if(find_result == 0) {
+		printf("\nSorry, couldn't find a match.\n");
+	}
+	
+	//Close the file if still open.
+	if(fp) {
+		fclose(fp);
+	}
+   	return(0);
+	}
+//return 1 if token is one of the valid robot commands, otherwise return 0
+
+
+
+//int isValidExpression(char *expression);
+//Returns 1 if the expression agrees with one of the legal robot expressions,
+//otherwise it returns 0.
+
+int Search_in_File(char *fname, char *str) {
+//validExpression
+	FILE *fp;
+	int line_num = 1;
+	int find_result = 0;
+	char temp[512];
+	
+	//gcc users
+	//if((fp = fopen(fname, "r")) == NULL) {
+	//	return(-1);
+	//}
+
+	//Visual Studio users
+	if((fopen_s(&fp, fname, "r")) != NULL) {
+		return(-1);
+	}
+
+//1 check if starts with repeat/while/say
+//if not, return 0,exit
+
+//2 if starts with repeat
+//check if format is REPEAT n TIMES comma-seperated-list-of-commands END
+//if not, return 0,exit
+//check token
+//????????????????????????
+
+
+//2 if starts with while
+//check if format is WHILE NOT c DO comma-separated-list-of-commands END
+//if not, return 0,exit
+
+
+
+
+
+//2 if starts with say
+//check if format is SAY "message"
+//ignore whatever is inside the " "
+//if not, return 0,exit
+char checkSay(char* str){
+	int n = str.length;
+
+	int i;
+	i = strcasecmp(str[0],s);
+	j = strcasecmp(str[1],a);
+	k = strcasecmp(str[2],y);
+	a = strcasecmp(str[3],'"');
+	b = strcasecmp(str[n-1],'"');
+
+	if(i==0 && j==0 && k==0 && a==0 && b==0){
+	  return 1;
+	}
+	return 0;
+}
+
+
+
+
+
+	while(fgets(temp, 512, fp) != NULL) {
+		if((strstr(temp, str)) != NULL) {
+			printf("A match found on line: %d\n", line_num);
+			printf("\n%s\n", temp);
+			find_result++;
+		}
+		line_num++;
+	}
+
+	if(find_result == 0) {
+		printf("\nSorry, couldn't find a match.\n");
+	}
+	
+	//Close the file if still open.
+	if(fp) {
+		fclose(fp);
+	}
+   	return(0);
+}
+
+
+
+
+//seperate into tokens
+int main()
+{
+  //scanf 
+  //str[] = scanf
+
+   char str[80] = "This is - www.tutorialspoint.com - website";
+   const char s[2] = "-";
+   //what should be put inside " " ????
+				
+   char *token;
+   
+   /* get the first token */
+   token = strtok(str, s);
+   
+   /* walk through other tokens */
+   while( token != NULL ) 
+   {
+      printf( " %s\n", token );
+    
+      token = strtok(NULL, s);
+   }
+   
+   return(0);
+}
 
