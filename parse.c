@@ -45,32 +45,29 @@ char *nextToken(){
 	int line_num = 1;
 	char *arrToken; 
 	FILE *fp;
-	char temp[512];
+	char temp[512];	
+
+	int i = 0; 	//initialize the array size to zero
 		
+	//while(!isspace(buffer + i))
+	if((buffer!=NULL)&&(isspace(buffer + i))){
+		char nextToken[i];
+		for(int j = 0;j<i;j++){
+			nextToken[j] = buffer;
+			buffer+=1;
+			bsize-=1;
+		} 	
+	}
+	else if(buffer==NULL){
+		arrToken = NULL;	
+	}
+	else{
+		i+=1;
+		//increase i so can point to the next element to check if it is space
+	}	
 
-   	//how to input file content line by line?
-   	//what is const char s[2]??
-   	//char str[80] = ;
-   	//const char s[2] = "-";
-
-
-   	/* get the first token */
-   	token = strtok(str, s);
-
-   	/* walk through other tokens */
-   	while( token != NULL ){
- 
-	
-      	//	printf( " %s\n", token );
-      	//	print is just for checking/debugging
-		token = strtok(NULL, s);
-
-	//return the array contain the tokens
-	return 
-   	}
-	//do we need to increase the line number?
-	//line_num++;
-   	return NULL;
+	return arrToken;
+   	//return NULL;
 }
 
 
