@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<string.h>
-#include<stlib.h>
+#include<stdlib.h>
 #define BOOLEAN int
 #define true 1
 #define false 0
@@ -37,9 +37,6 @@ BOOLEAN hasNextToken(){
 	}
 }
 
-
-
-
 //seperate into tokens
 char *nextToken(){
 	int line_num = 1;
@@ -52,8 +49,9 @@ char *nextToken(){
 	//while(!isspace(buffer + i))
 	if((buffer!=NULL)&&(isspace(buffer + i))){
 		char nextToken[i];
-		for(int j = 0;j<i;j++){
-			nextToken[j] = buffer;
+		int j;
+		for(j = 0;j < i;j=j+1){
+			nextToken[j] =*buffer;
 			buffer+=1;
 			bsize-=1;
 		} 	
@@ -71,8 +69,7 @@ char *nextToken(){
 }
 
 
-void rewind()
-{
+void rewind(){
 	initBuffer(safe);
 }
 
