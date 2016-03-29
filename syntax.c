@@ -1,10 +1,23 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
+#include "parse.h"
+#define BOOLEAN int 
+#define TRUE 1
+#define FALSE 0
+//change true and false to TRUE and FALSE****************************************************
+extern char *buffer;
+extern char *offence;
+extern char *stars;
+extern char *clean;
 
-//check text file-- check .txt or the file content is all text??/ascii
-//do we need to use fopen to open the file??? y,and fget to check line by line
+//what does strcat do?**************************************************************
 
-//must fit in single line
-// Every command or expression terminates with a carriage return and line feed.
-					
+
+
+
+
 //int isValidCommand(char *token);
 //Returns 1 if the token is one of the valid robot commands, otherwise it returns 0.
 //command is atomic -- single word,not case sensitive
@@ -13,6 +26,61 @@
 int isValidCommand(char *token);
 int isValidExpression(char *expression);
 //prototypes,so order don't matter
+
+
+//isValidCommand**************************************************************
+int isValidCommand(char *token){
+	if ( strcasecmp(token,"TAKEASTEP") == 0 ) {
+		return TRUE;
+	}
+	if ( strcasecmp(token,"LEFT") == 0 ) {
+		return TRUE;
+	}
+	if ( strcasecmp(token,"RIGHT") == 0 ) {
+		return TRUE;
+	}
+	if ( strcasecmp(token,"PICKUP") == 0 ) {
+		return TRUE;
+	}
+	if ( strcasecmp(token,"DROP") == 0 ) {
+		return TRUE;
+	}
+	if ( strcasecmp(token,"DETECTMARKER") == 0 ) {
+		return TRUE;
+	}
+	if ( strcasecmp(token,"TURNON") == 0 ) {
+		return TRUE;
+	}
+	if ( strcasecmp(token,"TURNOFF") == 0 ) {
+		return TRUE;
+	}
+	else{
+		return FALSE; 
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //validCommand
 int main(int argc, char *argv[]) {
@@ -124,12 +192,30 @@ int isValidExpression(char *expression){
 
 char *Token = nextToken();
 if (strcasecom(Token,"REPEAT") == 0){
+addoffence(Token," ");
 Token = nextToken();
 	if(myNumeric(Token)){
 	//what's myNumberic??????????????????????????
- 	Token = nextToken();
+ 	addoffence(Token," ");
+	Token = nextToken();
 	if(strcasecmp(Token,"TIMES") == 0){
-		Token = nextToken();
+		addoffence(Token," ");
+		return list(Token);
+	}
+	newoffence(Token," ")," ";
+	//*******************why??***************************************************************
+	return FALSE;
+	}
+	newoffence(Token," ");
+	return FALSE;
+}
+
+
+
+
+
+
+			Token = nextToken();
 		while(strcasecmp(Token,"END") != 0){
 			if(!isValidCommand(Token)){
 				return false;
@@ -244,4 +330,4 @@ char checkSay(char* str){
 }
 
 
-
+}
