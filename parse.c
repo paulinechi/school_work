@@ -15,7 +15,7 @@ void initBuffer(char *inputLine);
 BOOLEAN hasNextToken();
 //This function returns a 1 if there are still more tokens in the string, otherwise it returns 0. For example, if this is a string "my name is Bob", then this string has 4 tokens
 char *nextToken();
-void rewind();
+void myrewind();
 
 void initBuffer(char *inputLine){
 	int len = strlen(inputLine);
@@ -69,7 +69,7 @@ char *nextToken(){
 }
 
 
-void rewind(){
+void myrewind(){
 	initBuffer(safe);
 }
 
