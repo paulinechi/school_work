@@ -117,9 +117,72 @@ int Search_in_File(char *fname, char *str) {
 	if((fopen_s(&fp, fname, "r")) != NULL) {
 		return(-1);
 	}
-
+//*************************************************************************************
 //1 check if starts with repeat/while/say
 //if not, return 0,exit
+int isValidExpression(char *expression){
+
+char *Token = nextToken();
+if (strcasecom(Token,"REPEAT") == 0){
+Token = nextToken();
+	if(myNumeric(Token)){
+	//what's myNumberic??????????????????????????
+ 	Token = nextToken();
+	if(strcasecmp(Token,"TIMES") == 0){
+		Token = nextToken();
+		while(strcasecmp(Token,"END") != 0){
+			if(!isValidCommand(Token)){
+				return false;
+				//false or FALSE???????????????????????
+			}
+			//add check for int n**************************
+			if(hasNextToken() == false){
+				return false;
+			}
+		Token = nextToken();
+		}
+		if (hasNextToken() == false){
+			return true;
+		}
+		Token = nextToken();
+		if(Token == NULL || strcasecmp(Token,"") == 0){
+			return true;
+		}
+	}
+}
+return false;
+}
+//**********************************************************************************
+//check for while
+
+else if(strcasecmp(Token,"WHILE") == 0){
+Token = nextToken();
+	if(strcasecmp(Token,"NOT") == 0){
+	Token = nextToken();
+		if(strcasecmp(Token,"DETECTMARKER") == 0){
+		Token = nextToken();
+		
+		while(strcasecmp(Token,"END") != 0){
+			if(!isValidCommand(Token)){
+				return false;
+			}
+			if(hasNextToken() == FALSE){
+				return false;
+			}
+		Token = nextToken();
+		}
+		if (hasNextToken() == false){
+			return true;
+		}
+		Token = nextToken();
+		if(Token == NULL || strcasecmp(Token,"") == 0){
+			return true;
+		}
+		}
+	}
+}
+			
+
 
 //2 if starts with repeat
 //check if format is REPEAT n TIMES comma-seperated-list-of-commands END
@@ -181,31 +244,4 @@ char checkSay(char* str){
 }
 
 
-
-
-//seperate into tokens
-int main()
-{
-  //scanf 
-  //str[] = scanf
-
-   char str[80] = "This is - www.tutorialspoint.com - website";
-   const char s[2] = "-";
-   //what should be put inside " " ????
-				
-   char *token;
-   
-   /* get the first token */
-   token = strtok(str, s);
-   
-   /* walk through other tokens */
-   while( token != NULL ) 
-   {
-      printf( " %s\n", token );
-    
-      token = strtok(NULL, s);
-   }
-   
-   return(0);
-}
 
