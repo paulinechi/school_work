@@ -2,43 +2,101 @@
 #include "syntax.h"
 #include "parse.h"
 #include <stdlib.h>
-/*check it's .txt
+#include <string.h>
+#define BOOLEAN int
+#define true 1
+#define false 0
 
-Verify the filename passed is 4 characters or longer (if not, it's too short to have that extension), then do a strcmp (or stricmp to allow *.TXT, *.tXT etc., since Windows isn't case sensitive about this stuff) between the last four characters of the filename and ".txt". Note: On Windows, there is a PathFindExtension function that can do the heavy lifting of finding the beginning of the extension for a file for you.
-*/
+extern char *buffer;
+extern char *offence;
+extern char *stars;
+extern char *clean;
+//what is extern??**************************************************
+
+
+//check filename
+int main(int argc, char *argv[]){
+	if (argv[1] == NULL ){
+		printf("Please enter a filename or a valid path.\n");
+		return 1;
+	}
+	if (argv[2] != NULL ){
+		printf("Please only enter a filename or a valid path.\n");
+		return 1;
+	}
 
 
 //check no space
 //can contain path
 //why there's ./a.out in the front??? should the user typed in ./a.out as well???
 
-int checkFileName(char *str){
-	
-	char fileName[1000];
-	//create an array to hold value of file name 
 
-	printf("Enter file name: ");
-	scanf("%s",fileName);
-
-	int n = sizeof(fileName);
-
-	int i = strcasecmp(fileName[n-1],t);
-	int j = strcasecmp(fileName[n-2],x);
-	int k = strcasecmp(fileName[n-3],t);
-	int m = strcasecmp(fileName[n-4],'.');
-	
-	if(i==0 && j==0 && k==0 && m==0){
-		return 1;
-	//if ends with .txt return1
-	} 				
-	printf("Wrong format. File name should be a string with no space, the file name can be just the name of a file or the name of a file with a path. It should be a text file. ");
-	exit(0);
-	//return 0;
-	//if not, terminate and display error message  
-
+//using fopen to check file if valid, if return null it's invalid
+int counter = 0;
+FILE *file_ptr;
+char line[300];
+char *line_ptr;
+line_ptr = line; 
+file_ptr = fopen(argv[1] ,"rt");
+//check if the file is readable 
+ 
+if(file_ptr == NULL){
+	printf("There is an error with the file, please type in a valid file or path.\n");
+	return 1;
 }
 
+char *ftoken;
+fgets(line,299,file_ptr);
+counter++;
+while(!feof(file_ptr)){
+	initBuffer(line_ptr);
+	ftoken = nextToken(); 
+	printf("Line %d \n",counter);
+	
+	//what is VC?**********************************************************************
+	//validCommend
+	BOOLEAN VC = isValidCommand(ftoken);
+	BOOLEAN VCcheck = TRUE;
 
+ 
+	if(VC == TRUE){
+		addoffence(ftoken," ");
+		ftoken = nextToken();
+		if (ftoken == NULL || strcasecmp(ftoken,"") == 0 ){
+			VCcheck = TRUE;
+			printf("		COMMAND VALID\n");
+		}
+		else {
+			VCcheck = FALSE;
+			newoffence(ftoken);
+		}
+	} 
+	myrewind();
+	if( VC == TRUE && VCcheck == FALSE){ // no need to call VE prin!!! false why do 
+	//offence go to next line 
+	//printf("VC TRUE VC CHECK FALSE\n ");
+		printf("message prototype:\nThe program is expecting a valid command or expression.\n");
+	}
+	if (VC == FALSE){ // call VE 
+			
+		BOOLEAN VE = isValidExpression(buffer);
+		//printf("ve = %d for Token=%s \n",VE, ftoken);
+		if(VE == FALSE ){//if ve true go to next line 
+		// if ve is false print do offence and go to next line 
+
+			printf("message prototype:\nOn Line %d: %s \nThe program is expecting a valid command or expression.\n",counter, offence);
+		}// end of if ve is false 
+		else{
+			printf("		EXPRESSION VALID !\n");
+		}
+	}
+	myrewind();
+	printf("offence : %s\n",offence);
+	fgets(line,299,file_ptr);
+	counter++;
+}
+fclose(file_ptr);
+}
 
 
 
