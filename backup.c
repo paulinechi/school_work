@@ -4,6 +4,9 @@
 #include <unistd.h>
 
 //step1
+
+int main(){
+
 int backup(){
 				  	   	
 	char *BackupSource = getenv("BackupSource");
@@ -40,5 +43,8 @@ while(1)
 	}
 }
 	return 0;
+
+}
+
 
 }
