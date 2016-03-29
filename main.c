@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 #define BOOLEAN int
-#define true 1
-#define false 0
+#define TRUE 1
+#define FALSE 0
 
 extern char *buffer;
 extern char *offence;
