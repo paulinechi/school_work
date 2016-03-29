@@ -13,6 +13,10 @@ int backup(){
 	char *BackupDestination = getenv("BackupDestination");
 	char *BackupTime = getenv("BackupTime");
 
+	if(BackupTime==NULL || BackupDestination==NULL || BackupSource==NULL){
+		exit(1);
+	}
+
 	time_t rawtime;
 	struct tm *info;
 	char buffer[500];
@@ -39,7 +43,7 @@ while(1)
 		sleep(60);
 	}
 	else{
-		system("cd $BackupSource; cp * $BackupDestination");
+		system("cd $BackupSource; cp -r *.* $BackupDestination");
 	}
 }
 	return 0;
