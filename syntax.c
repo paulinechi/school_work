@@ -210,63 +210,82 @@ Token = nextToken();
 	return FALSE;
 }
 
-
-
-
-
-
+else if (strcasecmp(Token,"WHILE")==0){
+	addoffence(Token," ");
+	Token = nextToken();
+	if(strcasecmp(Token,"NOT")==0){
+		addoffence(Token," ");
+		Token = nextToken();
+		if(strcasecmp(Token,"DETECTMARKER")==0){
+			addoffence(Token," ");
 			Token = nextToken();
-		while(strcasecmp(Token,"END") != 0){
-			if(!isValidCommand(Token)){
-				return false;
-				//false or FALSE???????????????????????
-			}
-			//add check for int n**************************
-			if(hasNextToken() == false){
-				return false;
-			}
-		Token = nextToken();
+				if(strcasecmp(Token,"DO")==0){
+				addoffence(Token," ");
+ 	                    	return list(Token);
+				}
+		newoffence(Token," ");
+		return FALSE;	
 		}
-		if (hasNextToken() == false){
-			return true;
-		}
-		Token = nextToken();
-		if(Token == NULL || strcasecmp(Token,"") == 0){
-			return true;
-		}
+ 	newoffence(Token," ");
+	return FALSE;	
 	}
+newoffence(Token," ");
+return FALSE;	
 }
-return false;
-}
+
+
+//			Token = nextToken();
+//		while(strcasecmp(Token,"END") != 0){
+//			if(!isValidCommand(Token)){
+//				return false;
+//				//false or FALSE???????????????????????
+//			}
+//			//add check for int n**************************
+//			if(hasNextToken() == false){
+//				return false;
+//			}
+//		Token = nextToken();
+//		}
+//		if (hasNextToken() == false){
+//			return true;
+//		}
+//		Token = nextToken();
+//		if(Token == NULL || strcasecmp(Token,"") == 0){
+//			return true;
+//		}
+//	}
+//}
+//return false;
+//}
 //**********************************************************************************
 //check for while
 
-else if(strcasecmp(Token,"WHILE") == 0){
-Token = nextToken();
-	if(strcasecmp(Token,"NOT") == 0){
-	Token = nextToken();
-		if(strcasecmp(Token,"DETECTMARKER") == 0){
-		Token = nextToken();
-		
-		while(strcasecmp(Token,"END") != 0){
-			if(!isValidCommand(Token)){
-				return false;
-			}
-			if(hasNextToken() == FALSE){
-				return false;
-			}
-		Token = nextToken();
-		}
-		if (hasNextToken() == false){
-			return true;
-		}
-		Token = nextToken();
-		if(Token == NULL || strcasecmp(Token,"") == 0){
-			return true;
-		}
-		}
-	}
-}
+//else if(strcasecmp(Token,"WHILE") == 0){
+//Token = nextToken();
+//	if(strcasecmp(Token,"NOT") == 0){
+//	Token = nextToken();
+//		if(strcasecmp(Token,"DETECTMARKER") == 0){
+//		Token = nextToken();
+//		
+//		while(strcasecmp(Token,"END") != 0){
+//			if(!isValidCommand(Token)){
+//				return false;
+//			}
+//			if(hasNextToken() == FALSE){
+//				return false;
+//			}
+//		Token = nextToken();
+//		}
+//		if (hasNextToken() == false){
+//			return true;
+//		}
+//		Token = nextToken();
+//		if(Token == NULL || strcasecmp(Token,"") == 0){
+//			return true;
+//		}
+//		}
+//	}
+//}
 			
 
 
@@ -288,46 +307,36 @@ Token = nextToken();
 //2 if starts with say
 //check if format is SAY "message"
 //ignore whatever is inside the " "
-//if not, return 0,exit
-char checkSay(char* str){
-	int n = str.length;
-
-	int i;
-	i = strcasecmp(str[0],s);
-	j = strcasecmp(str[1],a);
-	k = strcasecmp(str[2],y);
-	a = strcasecmp(str[3],'"');
-	b = strcasecmp(str[n-1],'"');
-
-	if(i==0 && j==0 && k==0 && a==0 && b==0){
-	  return 1;
+//if not, return 0,exi
+else if ( strcasecmp(Token,"SAY") == 0 ){
+	addoffence(Token," ");
+	//printf("offence for say  =%s",offence);
+	//Token = nextToken();// token has the line without say 
+	if (Token == NULL || strcasecmp(Token,"") == 0 ){
+		newoffence(Token," ");
+		return FALSE;
 	}
-	return 0;
+	//printf("buffer before VM  = %s",buffer);
+	BOOLEAN VM = validM(buffer);
+	//printf("buffer apres stresp ¤ %s\n",buffer);
+	if (VM){
+		 return TRUE;
+	}
+
+	else{
+	//offence = strcat(offence,stars);
+	//newoffence(Token,"\"");
+	return FALSE;
+	}
 }
-
-
-
-
-
-	while(fgets(temp, 512, fp) != NULL) {
-		if((strstr(temp, str)) != NULL) {
-			printf("A match found on line: %d\n", line_num);
-			printf("\n%s\n", temp);
-			find_result++;
-		}
-		line_num++;
-	}
-
-	if(find_result == 0) {
-		printf("\nSorry, couldn't find a match.\n");
-	}
-	
-	//Close the file if still open.
-	if(fp) {
-		fclose(fp);
-	}
-   	return(0);
+//offence = strcat(offence,stars);
+newoffence(Token," ");
+return FALSE;
 }
+ 
 
 
-}
+
+
+
+t
