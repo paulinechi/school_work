@@ -15,6 +15,175 @@ extern char *clean;
 //what does strcat do?**************************************************************
 
 
+//print the error message********************************************
+void newoffence(char *token,char *separate)
+{
+offence = strcat(offence,stars);
+offence = strcat(offence,token);
+offence = strcat(offence,separate);
+offence = strcat(offence,buffer);
+}
+void addoffence(char *token,char *separate)
+{
+offence = strcat(offence,token);
+offence = strcat(offence,separate);
+}
+
+int myNumeric(char *Token)
+{
+int i=0;
+if(strcasecmp(Token,"0") == 0)
+{ return FALSE;}
+while (Token[i] != '\0')
+{
+if(!isdigit(Token[i]))
+{
+return FALSE;
+}
+i++;
+}
+return TRUE;
+}
+
+BOOLEAN validM(char *str)
+{
+int i = 0;
+int count = 0;
+int lasti = 0; 
+//printf("STRING FIX IT=%s",str);
+while(str[i]!= '\0' )
+{
+if ( str[i] == '"'  )
+{
+count++;// counts the number of "
+lasti = i; // remembers position of last "
+}
+i++;
+}
+if (count < 2 )
+{
+	offence = strcat(offence,stars);
+	offence = strcat(offence,buffer);
+return FALSE;
+}
+str[lasti+1] = '¤';
+char *tok = strsep(&buffer,"¤");
+addoffence(tok," ");
+	
+if ( lasti == ((int)strlen(str)-2))
+{
+addoffence(tok," ");
+return TRUE;
+}
+printf("entire string tok=%s\n",tok);
+printf("entire buffer=%s\n",buffer);
+
+if (hasNextToken() == FALSE )
+	{
+	addoffence(tok," ");
+	return TRUE; }
+	tok = nextToken();		
+
+
+
+	if (buffer == NULL || strcasecmp(tok,"") == 0 )
+	{	
+	addoffence(tok," ");
+	return TRUE;
+	}
+newoffence(tok," ");
+return FALSE;
+}
+
+BOOLEAN list(char *Token)
+{
+int i = 0;
+int count = 0;
+int send = 0;
+
+while(buffer[i]!= '\0')
+{
+if(buffer[i] == ',')
+{
+count++;
+}
+i++; 
+}  
+
+if(count != 0 )
+{
+while(send != count )
+{
+
+Token = strsep(&buffer,",");
+
+if (!isValidCommand(Token))
+	{
+	newoffence(Token,",");	
+	return FALSE;	
+	}	
+addoffence(Token,",");
+send++;
+}
+}	
+
+Token = nextToken();
+//addoffence(Token," ");
+
+	if (!isValidCommand(Token))
+	{
+	newoffence(Token," ");
+	return FALSE;	
+	}
+	addoffence(Token," ");	
+	
+	Token = nextToken();
+	if(strcasecmp(Token,"END") != 0 )
+	{
+//	offence = strcat(offence,stars);
+	newoffence(Token," ");
+	return FALSE;
+	}
+	addoffence(Token," ");	
+	if (hasNextToken() == FALSE )
+	{return TRUE; }
+	Token = nextToken();		
+
+	if (Token == NULL || strcasecmp(Token,"") == 0 )
+	{	
+	return TRUE;
+	}
+newoffence(Token," ");
+return FALSE;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -23,10 +192,6 @@ extern char *clean;
 //command is atomic -- single word,not case sensitive
 //Legal commands are: TAKEASTEP, LEFT, RIGHT,PICKUP, DROP, DETECTMARKER, TURNON, and TURNOFF.
 				
-int isValidCommand(char *token);
-int isValidExpression(char *expression);
-//prototypes,so order don't matter
-
 
 //isValidCommand**************************************************************
 int isValidCommand(char *token){
@@ -339,4 +504,4 @@ return FALSE;
 
 
 
-t
+
