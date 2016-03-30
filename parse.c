@@ -52,6 +52,7 @@ char *nextToken(){
 
 	if(hasNextToken()){
 		char *ignore = " !.\r\n\0";
+		//
 		char *first;
 		first = strsep(&buffer,ignore);
 		return first;
