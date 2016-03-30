@@ -17,7 +17,7 @@ extern char *clean;
 //check filename
 int main(int argc, char *argv[]){
 	if (argv[1] == NULL ){
-		printf("Please enter a filename or a valid path.\n");
+		printf("No filename or a valid path entered.\n");
 		return 1;
 	}
 	if (argv[2] != NULL ){
@@ -41,7 +41,7 @@ file_ptr = fopen(argv[1] ,"rt");
 //check if the file is readable 
  
 if(file_ptr == NULL){
-	printf("There is an error with the file, please type in a valid file or path.\n");
+	printf("Please type in a valid file or path.\n");
 	return 1;
 }
 
@@ -53,7 +53,6 @@ while(!feof(file_ptr)){
 	ftoken = nextToken(); 
 	printf("Line %d \n",counter);
 	
-	//what is VC?**********************************************************************
 	//validCommend
 	BOOLEAN VC = isValidCommand(ftoken);
 	BOOLEAN VCcheck = TRUE;
@@ -72,20 +71,21 @@ while(!feof(file_ptr)){
 		}
 	} 
 	myrewind();
-	if( VC == TRUE && VCcheck == FALSE){ // no need to call VE prin!!! false why do 
+	if( VC == TRUE && VCcheck == FALSE){  
 	//offence go to next line 
-	//printf("VC TRUE VC CHECK FALSE\n ");
-		printf("message prototype:\nThe program is expecting a valid command or expression.\n");
+		printf("message prototype:\nShould be a valid command or expression.\n");
 	}
-	if (VC == FALSE){ // call VE 
+	if (VC == FALSE){ 
+	// call VE 
 			
 		BOOLEAN VE = isValidExpression(buffer);
-		//printf("ve = %d for Token=%s \n",VE, ftoken);
-		if(VE == FALSE ){//if ve true go to next line 
+		if(VE == FALSE ){
+		//if ve true go to next line 
 		// if ve is false print do offence and go to next line 
 
-			printf("message prototype:\nOn Line %d: %s \nThe program is expecting a valid command or expression.\n",counter, offence);
-		}// end of if ve is false 
+			printf("message prototype:\nOn Line %d: %s \nShould be a valid command or expression.\n",counter, offence);
+		}
+		// end of if ve is false 
 		else{
 			printf("		EXPRESSION VALID !\n");
 		}
