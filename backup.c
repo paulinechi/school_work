@@ -2,17 +2,17 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include <string.h>
+
 
 //step1
 
 int main(){
 
-int backup(){
-				  	   	
 	char *BackupSource = getenv("BackupSource");
 	char *BackupDestination = getenv("BackupDestination");
 	char *BackupTime = getenv("BackupTime");
-
+//printf("22");
 	if(BackupTime==NULL || BackupDestination==NULL || BackupSource==NULL){
 		exit(1);
 	}
@@ -34,6 +34,9 @@ int backup(){
 //step 3
 //the backup algorithm
 //while(loop forever)
+
+//printf("testing");
+
 while(1)
 {
 	rawtime=time(NULL);
@@ -43,12 +46,20 @@ while(1)
 		sleep(60);
 	}
 	else{
+		//testing purpose
+		//printf("copying file...");
+
+		//can ; works?? does it has to be on one line??
 		system("cd $BackupSource; cp -r *.* $BackupDestination");
+		//system(cp -r *.* BackupSource BackupDestination);
+
+
+
 	}
 }
 	return 0;
 
-}
+//}
 
 
 }
